@@ -124,7 +124,7 @@ def get_product_url(item):
 def collect_data(pages_count, work_dir, cur_date):
     data = []
     for page in range(1, pages_count + 1):
-        with open(f"{work_dir}/page_{page}.html", "r", encoding="utf-8") as file:
+        with open(f"{work_dir}/page_{page}.html", "r") as file:
             src = file.read()
 
         soup = BeautifulSoup(src, "lxml")
