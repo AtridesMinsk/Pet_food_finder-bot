@@ -19,7 +19,20 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from bot_token import token2 as token
 
 
-bot = Bot(token=token, parse_mode=types.ParseMode.HTML)
+def get_bot_token():
+    b_token = token
+
+    if b_token != 0:
+        print("Bot token local find!")
+    else:
+        print("Bot token local not find!", "\n", "Get token from Heroku vars")
+        b_token = b_token(os.environ.get('TOKEN_KEY'))
+
+    print("\n", "Enjoy!")
+    return b_token
+
+
+bot = Bot(token=get_bot_token(), parse_mode=types.ParseMode.HTML)
 scheduler = AsyncIOScheduler()
 starting_dir = str(os.getcwd())
 dp = Dispatcher(bot)
