@@ -301,8 +301,11 @@ async def get_data_cats_napolniteli(message: types.Message):
         await message.answer("Попробуй позже, идет обновление информации (")
 
 
-def shedule_jobs():
-    """ Для cron нужно обязательно указывать timezone, а для interval не нужно указание timezone"""
+def schedule_jobs():
+    """
+    Для cron нужно обязательно указывать timezone, а для interval не нужно указание timezone!
+    Cron requires a timezone, interval does not need a timezone!
+    """
     # print("Запускаем расписание на старт обновления данных с сайта каждый день c 1:00 UTC+3")
     print("Запускаем расписание на старт обновления данных с сайта каждый час")
 
@@ -311,7 +314,7 @@ def shedule_jobs():
 
 
 def main():
-    shedule_jobs()
+    schedule_jobs()
     scheduler.start()
     executor.start_polling(dp)
 
