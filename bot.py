@@ -23,9 +23,11 @@ def get_bot_token():
         from bot_token import token2 as token
         b_token = token
         print("Bot token local find!")
+        print(b_token)
     except ModuleNotFoundError:
-        print("Bot token local not find!", "\n", "Get token from Heroku vars")
         b_token = os.environ.get('TOKEN_KEY')
+        print("Bot token local not find!", "\n", "Get token from Heroku vars")
+        print(b_token)
 
     print("\n", "Enjoy!")
     return b_token
