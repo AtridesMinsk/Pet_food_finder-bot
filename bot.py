@@ -21,16 +21,13 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 def get_bot_token():
     try:
         from bot_token import token2 as token
-        b_token = token
         print("Bot token local find!")
-        print(b_token)
     except ModuleNotFoundError:
-        b_token = os.environ.get('TOKEN_KEY')
+        token = os.environ.get('TOKEN_KEY')
         print("Bot token local not find!", "\n", "Get token from Heroku vars")
-        print(b_token)
 
     print("\n", "Enjoy!")
-    return b_token
+    return token
 
 
 bot = Bot(token=get_bot_token(), parse_mode=types.ParseMode.HTML)
