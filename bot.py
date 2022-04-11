@@ -16,10 +16,10 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher.filters import Text
 from aiogram.utils.markdown import hbold, hlink
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from bot_token import token2 as token
 
 
 def get_bot_token():
+    from bot_token import token2 as token
     b_token = token
 
     if b_token != 0:
