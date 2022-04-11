@@ -143,7 +143,7 @@ def get_pages(headers, url, pages_count, category, product, start_dir):
 
         r = requests.get(url=download_url, headers=headers)
 
-        with open(f"{workdir}/page_{i}.html", "w") as file:
+        with open(f"{workdir}/page_{i}.html", "w", encoding="utf-8") as file:
             file.write(r.text)
 
         sleep_time = random.randint(1, 3)
