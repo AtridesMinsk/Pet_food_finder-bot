@@ -159,7 +159,7 @@ def get_pages(headers, url, pages_count, category, product, start_dir):
 def get_site_data(headers, shop_category, shop_product, starting_dir):
     pet_url = get_pet_url(shop_category)
     pet_product_url = get_pet_category_url(pet_url, shop_product)
-    print("Ссылка на категорию: ", shop_category, shop_product, pet_product_url)
+    # print("Ссылка на категорию: ", shop_category, shop_product, pet_product_url)
     pages_count = get_pages_count(headers, pet_product_url)
     print("Найдено", pages_count, "страниц из:", shop_product, shop_category)
     get_pages(headers, pet_product_url, pages_count, shop_category, shop_product, starting_dir)

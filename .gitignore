@@ -1,0 +1,6 @@
+/.gitignore
+/.idea/
+bot_token.py
+/gavrik/data/
+/ezoo/data/
+/garfild/data/

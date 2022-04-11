@@ -152,13 +152,13 @@ def get_pages(headers, url, pages_count, category, product, start_dir):
 
 def get_site_data(headers, shop_category, shop_product, starting_dir):
     url = get_url(shop_category, shop_product)
-    print("Список: Питомец, Продукт, Ссылка", url)
+    # print("Список: Питомец, Продукт, Ссылка", url)
     link_url = url[2]
-    print("Ссылка", link_url)
+    # print("Ссылка", link_url)
     index_category = url[0]
     index_product = url[1]
-    print("Номер по порядку в меню выбора Питомца", index_category)
-    print("Номер по порядку в меню выбора Продукта", index_product)
+    # print("Номер по порядку в меню выбора Питомца", index_category)
+    # print("Номер по порядку в меню выбора Продукта", index_product)
     pages_count = get_pages_count(headers, link_url)
     print("Найдено", pages_count, "страниц из:", shop_product, shop_category)
     get_pages(headers, link_url, pages_count, shop_category, shop_product, starting_dir)
