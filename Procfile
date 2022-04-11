@@ -1,1 +1,1 @@
-worker: python garfild_v2_bot.by
+worker: python bot.by
