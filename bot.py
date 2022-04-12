@@ -321,7 +321,7 @@ def schedule_jobs():
     print("Запускаем расписание на старт обновления данных с сайта каждый час")
 
     # scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=1, minute=00, timezone="Europe/Minsk", args=(dp,))
-    scheduler.add_job(data_update, 'interval', hours=6, args=(dp,))
+    scheduler.add_job(data_update, 'interval', hours=6, args=(dp,), timeout=9000)
 
 
 def main():
