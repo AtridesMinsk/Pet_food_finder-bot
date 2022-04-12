@@ -317,7 +317,7 @@ def schedule_jobs():
     Для cron нужно обязательно указывать timezone, а для interval не нужно указание timezone!
     Cron requires a timezone, interval does not need a timezone!
     """
-    print("Запускаем расписание на старт обновления данных с сайта каждый день c 1:00 UTC+3")
+    print("Запускаем расписание на старт обновления данных с сайта каждый день c 01:00, 06:00, 13:00, 19:00 UTC+3")
     # print("Запускаем расписание на старт обновления данных с сайта каждый час")
 
     scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=1, minute=00, timezone="Europe/Minsk", args=(dp,))
