@@ -12,6 +12,7 @@ import os
 
 from time import sleep
 from datetime import datetime
+from datetime import timedelta
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher.filters import Text
 from aiogram.utils.markdown import hbold, hlink
@@ -43,12 +44,20 @@ print("Бот запущен!", start_date, start_time)
 @dp.message_handler(commands='update_data')
 async def data_update(commands="update_data"):
 
+    start_job_time = int(datetime.now().strftime("%H_%M_%S"))
+
     garfild_v2_site_data_download.main()
     os.chdir(starting_dir)
     gavrik_v2_site_data_download.main()
     os.chdir(starting_dir)
     ezoo_v2_site_data_download.main()
     os.chdir(starting_dir)
+
+    stop_job_time = int(datetime.now().strftime("%H_%M_%S"))
+    working_time = stop_job_time - start_job_time
+    print("Затрачено времени:", str(timedelta(seconds=working_time)))
+    os.chdir(starting_dir)
+    print(datetime.now())
 
 
 @dp.message_handler(commands='start')

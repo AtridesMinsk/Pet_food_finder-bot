@@ -166,7 +166,7 @@ def get_site_data(headers, shop_category, shop_product, starting_dir):
 
 
 def main():
-    start_time = int(datetime.now().strftime("%H_%M_%S"))
+    # start_time = int(datetime.now().strftime("%H_%M_%S"))
 
     delete_old_data()
     create_dir()
@@ -198,11 +198,11 @@ def main():
 
     get_site_data(headers, shop_category, shop_product, starting_dir)
 
-    stop_time = int(datetime.now().strftime("%H_%M_%S"))
-    working_time = stop_time - start_time
-    print("Затрачено времени:", str(timedelta(seconds=working_time)))
-    os.chdir(starting_dir)
-    print(datetime.now())
+    # stop_time = int(datetime.now().strftime("%H_%M_%S"))
+    # working_time = stop_time - start_time
+    # print("Затрачено времени:", str(timedelta(seconds=working_time)))
+    # os.chdir(starting_dir)
+    # print(datetime.now())
 
 
 if __name__ == '__main__':
