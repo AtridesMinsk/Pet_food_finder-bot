@@ -2,12 +2,12 @@
 
 import json
 import random
-import garfild_v2_correct_data
-import garfild_v2_site_data_download
-import gavrik_v2_correct_data
-import gavrik_v2_site_data_download
-import ezoo_v2_correct_data
-import ezoo_v2_site_data_download
+import garfild_correct_data
+import garfild_site_data_download
+import gavrik_correct_data
+import gavrik_site_data_download
+import ezoo_correct_data
+import ezoo_site_data_download
 import os
 
 from time import sleep
@@ -46,11 +46,11 @@ async def data_update(commands="update_data"):
 
     start_job_time = int(datetime.now().strftime("%H_%M_%S"))
 
-    garfild_v2_site_data_download.main()
+    garfild_site_data_download.main()
     os.chdir(starting_dir)
-    gavrik_v2_site_data_download.main()
+    gavrik_site_data_download.main()
     os.chdir(starting_dir)
-    ezoo_v2_site_data_download.main()
+    ezoo_site_data_download.main()
     os.chdir(starting_dir)
 
     stop_job_time = int(datetime.now().strftime("%H_%M_%S"))
@@ -109,11 +109,11 @@ async def get_data_cats_dry_food(message: types.Message):
     await message.answer('Please waiting...')
 
     try:
-        garfild_v2_correct_data.main(1, 3)
+        garfild_correct_data.main(1, 3)
         os.chdir(starting_dir)
-        gavrik_v2_correct_data.main(1, 3)
+        gavrik_correct_data.main(1, 3)
         os.chdir(starting_dir)
-        ezoo_v2_correct_data.main(1, 3)
+        ezoo_correct_data.main(1, 3)
         os.chdir(starting_dir)
 
         set_current_date = datetime.now().strftime("%d.%m.%Y")
@@ -153,11 +153,11 @@ async def get_data_dogs_dry_food(message: types.Message):
     await message.answer('Please waiting...')
 
     try:
-        garfild_v2_correct_data.main(2, 3)
+        garfild_correct_data.main(2, 3)
         os.chdir(starting_dir)
-        gavrik_v2_correct_data.main(2, 3)
+        gavrik_correct_data.main(2, 3)
         os.chdir(starting_dir)
-        ezoo_v2_correct_data.main(2, 3)
+        ezoo_correct_data.main(2, 3)
         os.chdir(starting_dir)
 
         set_current_date = datetime.now().strftime("%d.%m.%Y")
@@ -196,11 +196,11 @@ async def get_data_cats_canned_food(message: types.Message):
     await message.answer('Please waiting...')
 
     try:
-        garfild_v2_correct_data.main(1, 4)
+        garfild_correct_data.main(1, 4)
         os.chdir(starting_dir)
-        gavrik_v2_correct_data.main(1, 4)
+        gavrik_correct_data.main(1, 4)
         os.chdir(starting_dir)
-        ezoo_v2_correct_data.main(1, 4)
+        ezoo_correct_data.main(1, 4)
         os.chdir(starting_dir)
 
         set_current_date = datetime.now().strftime("%d.%m.%Y")
@@ -240,11 +240,11 @@ async def get_data_cats_canned_food(message: types.Message):
     await message.answer('Please waiting...')
 
     try:
-        garfild_v2_correct_data.main(2, 4)
+        garfild_correct_data.main(2, 4)
         os.chdir(starting_dir)
-        gavrik_v2_correct_data.main(2, 4)
+        gavrik_correct_data.main(2, 4)
         os.chdir(starting_dir)
-        ezoo_v2_correct_data.main(2, 4)
+        ezoo_correct_data.main(2, 4)
         os.chdir(starting_dir)
 
         set_current_date = datetime.now().strftime("%d.%m.%Y")
@@ -283,11 +283,11 @@ async def get_data_cats_napolniteli(message: types.Message):
     await message.answer('Please waiting...')
 
     try:
-        garfild_v2_correct_data.main(1, 5)
+        garfild_correct_data.main(1, 5)
         os.chdir(starting_dir)
-        gavrik_v2_correct_data.main(1, 5)
+        gavrik_correct_data.main(1, 5)
         os.chdir(starting_dir)
-        ezoo_v2_correct_data.main(1, 5)
+        ezoo_correct_data.main(1, 5)
         os.chdir(starting_dir)
 
         set_current_date = datetime.now().strftime("%d.%m.%Y")
@@ -326,14 +326,11 @@ def schedule_jobs():
     Для cron нужно обязательно указывать timezone, а для interval не нужно указание timezone!
     Cron requires a timezone, interval does not need a timezone!
     """
-    print("Запускаем расписание на старт обновления данных с сайта каждый день c 01:00, 06:00, 13:00, 19:00 UTC+3")
-    # print("Запускаем расписание на старт обновления данных с сайта каждый час")
+    print("Запускаем расписание на старт обновления данных с сайта каждый день c 08:00, 13:00, 22:00 UTC+3")
 
-    scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=1, minute=00, timezone="Europe/Minsk", args=(dp,))
-    scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=6, minute=00, timezone="Europe/Minsk", args=(dp,))
+    scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=8, minute=00, timezone="Europe/Minsk", args=(dp,))
     scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=13, minute=00, timezone="Europe/Minsk", args=(dp,))
-    scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=19, minute=00, timezone="Europe/Minsk", args=(dp,))
-    # scheduler.add_job(data_update, 'interval', hours=6, args=(dp,))
+    scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=22, minute=00, timezone="Europe/Minsk", args=(dp,))
 
 
 def main():
