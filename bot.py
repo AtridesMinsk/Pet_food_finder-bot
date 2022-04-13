@@ -42,7 +42,7 @@ print("Бот запущен!", start_date, start_time)
 
 
 @dp.message_handler(commands='update_data')
-async def data_update(commands="update_data"):
+def data_update(commands="update_data"):
 
     start_job_time = int(datetime.now().strftime("%H_%M_%S"))
 
