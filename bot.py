@@ -42,7 +42,7 @@ print("Бот запущен!", start_date, start_time)
 
 
 @dp.message_handler(commands='update_data')
-def data_update(commands="update_data"):
+def data_update(commands='update_data'):
 
     start_job_time = int(datetime.now().strftime("%H_%M_%S"))
 
@@ -59,22 +59,27 @@ def data_update(commands="update_data"):
     os.chdir(starting_dir)
     print(datetime.now())
 
+    # working_time_message = f'На обработку затрачено времени: <b>{working_time}</b>'
+    #
+    # message.answer(working_time_message, parse_mode='html')
+
 
 @dp.message_handler(commands='start')
 async def start(message: types.Message):
-    start_messge = f'Привет, <b>{message.from_user.first_name}</b> Для кого будем искать корм?'
+    start_message = f'Привет, <b>{message.from_user.first_name}</b> Для кого будем искать корм?'
     start_buttons = ['Для Котов', 'Для Собак']
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     keyboard.add(*start_buttons)
 
-    await message.answer(start_messge, reply_markup=keyboard, parse_mode='html')
+    await message.answer(start_message, reply_markup=keyboard, parse_mode='html')
 
 
 @dp.message_handler(commands='user_info')
 async def start(message: types.Message):
-    start_messge = f'{message}'
+    start_message = f'Привет, <b>{message.from_user.first_name}</b>.' '\n' \
+                   f'Твой ID: <b>{message.from_user.id}</b>'
 
-    await message.answer(start_messge, parse_mode='html')
+    await message.answer(start_message, parse_mode='html')
 
 
 @dp.message_handler(Text(equals='Для Котов'))
@@ -138,8 +143,8 @@ async def get_data_cats_dry_food(message: types.Message):
                        f'{hbold("Цена: ")}{item.get("product_new_price")} BYN🔥\n' \
 
                 if index % 20 == 0:
-                    sleeptime = random.randint(1, 5)
-                    sleep(sleeptime)
+                    sleep_time = random.randint(1, 5)
+                    sleep(sleep_time)
 
                 await message.answer(card, disable_web_page_preview=True)
         else:
@@ -181,8 +186,8 @@ async def get_data_dogs_dry_food(message: types.Message):
                        f'{hbold("Цена: ")}{item.get("product_new_price")} BYN🔥\n' \
 
                 if index % 20 == 0:
-                    sleeptime = random.randint(1, 5)
-                    sleep(sleeptime)
+                    sleep_time = random.randint(1, 5)
+                    sleep(sleep_time)
 
                 await message.answer(card, disable_web_page_preview=True)
         else:
@@ -225,8 +230,8 @@ async def get_data_cats_canned_food(message: types.Message):
                        f'{hbold("Цена: ")}{item.get("product_new_price")} BYN🔥\n' \
 
                 if index % 20 == 0:
-                    sleeptime = random.randint(1, 5)
-                    sleep(sleeptime)
+                    sleep_time = random.randint(1, 5)
+                    sleep(sleep_time)
 
                 await message.answer(card, disable_web_page_preview=True)
         else:
@@ -268,8 +273,8 @@ async def get_data_cats_canned_food(message: types.Message):
                        f'{hbold("Цена: ")}{item.get("product_new_price")} BYN🔥\n' \
 
                 if index % 20 == 0:
-                    sleeptime = random.randint(1, 5)
-                    sleep(sleeptime)
+                    sleep_time = random.randint(1, 5)
+                    sleep(sleep_time)
 
                 await message.answer(card, disable_web_page_preview=True)
         else:
@@ -311,8 +316,8 @@ async def get_data_cats_napolniteli(message: types.Message):
                        f'{hbold("Цена: ")}{item.get("product_new_price")} BYN🔥\n' \
 
                 if index % 20 == 0:
-                    sleeptime = random.randint(1, 5)
-                    sleep(sleeptime)
+                    sleep_time = random.randint(1, 5)
+                    sleep(sleep_time)
 
                 await message.answer(card, disable_web_page_preview=True)
         else:
