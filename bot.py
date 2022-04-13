@@ -28,10 +28,6 @@ def get_bot_token():
         print("Bot token local not find!", "\n", "Get token from Heroku vars")
 
     print("\n", "Enjoy!")
-
-    print("Start data update!")
-    data_update()
-
     return token
 
 
@@ -338,6 +334,8 @@ def schedule_jobs():
 
 
 def main():
+    print("Start data update!")
+    data_update()
     schedule_jobs()
     scheduler.start()
     executor.start_polling(dp)
