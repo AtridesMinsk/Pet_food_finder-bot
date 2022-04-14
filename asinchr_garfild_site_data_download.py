@@ -3,11 +3,9 @@ import aiohttp
 import asyncio
 import aiofiles
 import shutil
-import random
 
 from bs4 import BeautifulSoup
 from datetime import timedelta, datetime
-from time import sleep
 
 shop_url = 'https://garfield.by/stock.html'
 

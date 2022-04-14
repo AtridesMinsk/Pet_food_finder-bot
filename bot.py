@@ -42,15 +42,15 @@ print("Бот запущен!", start_date, start_time)
 
 
 @dp.message_handler(commands='update_data')
-def data_update(commands='update_data'):
+async def data_update(commands='update_data'):
 
     start_job_time = int(datetime.now().strftime("%H_%M_%S"))
 
-    garfild_site_data_download.main()
+    await garfild_site_data_download.main()
     os.chdir(starting_dir)
-    gavrik_site_data_download.main()
+    await gavrik_site_data_download.main()
     os.chdir(starting_dir)
-    ezoo_site_data_download.main()
+    await ezoo_site_data_download.main()
     os.chdir(starting_dir)
 
     stop_job_time = int(datetime.now().strftime("%H_%M_%S"))
@@ -335,12 +335,12 @@ def schedule_jobs():
 
     scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=8, minute=00, timezone="Europe/Minsk", args=(dp,))
     scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=13, minute=00, timezone="Europe/Minsk", args=(dp,))
-    scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=22, minute=00, timezone="Europe/Minsk", args=(dp,))
+    scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=20, minute=00, timezone="Europe/Minsk", args=(dp,))
 
 
 def main():
-    print("Start data update!")
-    data_update()
+    # print("Start data update!")
+    # await data_update()
     schedule_jobs()
     scheduler.start()
     executor.start_polling(dp)
