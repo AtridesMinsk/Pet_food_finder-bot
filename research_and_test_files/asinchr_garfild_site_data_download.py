@@ -14,7 +14,7 @@ async def delete_old_data():
     """ Удаляет папку с устаревшими данными.
     Deletes the stale data folder. """
     try:
-        shutil.rmtree("garfild/data")
+        shutil.rmtree("../garfild/data")
     except FileNotFoundError:
         pass
 
@@ -22,22 +22,22 @@ async def delete_old_data():
 async def create_dir():
     """ Создаем каталоги для загрузки страниц сайта.
      We create directories for loading site pages. """
-    if not os.path.exists("garfild/data"):
-        os.mkdir("garfild/data")
-    if not os.path.exists("garfild/data/cats"):
-        os.mkdir("garfild/data/cats")
-    if not os.path.exists("garfild/data/dogs"):
-        os.mkdir("garfild/data/dogs")
-    if not os.path.exists("garfild/data/cats/dry_food"):
-        os.mkdir("garfild/data/cats/dry_food")
-    if not os.path.exists("garfild/data/dogs/dry_food"):
-        os.mkdir("garfild/data/dogs/dry_food")
-    if not os.path.exists("garfild/data/cats/canned_food"):
-        os.mkdir("garfild/data/cats/canned_food")
-    if not os.path.exists("garfild/data/dogs/canned_food"):
-        os.mkdir("garfild/data/dogs/canned_food")
-    if not os.path.exists("garfild/data/cats/napolniteli"):
-        os.mkdir("garfild/data/cats/napolniteli")
+    if not os.path.exists("../garfild/data"):
+        os.mkdir("../garfild/data")
+    if not os.path.exists("../garfild/data/cats"):
+        os.mkdir("../garfild/data/cats")
+    if not os.path.exists("../garfild/data/dogs"):
+        os.mkdir("../garfild/data/dogs")
+    if not os.path.exists("../garfild/data/cats/dry_food"):
+        os.mkdir("../garfild/data/cats/dry_food")
+    if not os.path.exists("../garfild/data/dogs/dry_food"):
+        os.mkdir("../garfild/data/dogs/dry_food")
+    if not os.path.exists("../garfild/data/cats/canned_food"):
+        os.mkdir("../garfild/data/cats/canned_food")
+    if not os.path.exists("../garfild/data/dogs/canned_food"):
+        os.mkdir("../garfild/data/dogs/canned_food")
+    if not os.path.exists("../garfild/data/cats/napolniteli"):
+        os.mkdir("../garfild/data/cats/napolniteli")
 
 
 def get_headers():
