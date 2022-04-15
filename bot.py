@@ -11,8 +11,7 @@ import ezoo_site_data_download
 import os
 
 from time import sleep
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher.filters import Text
 from aiogram.utils.markdown import hbold, hlink
@@ -42,7 +41,7 @@ print("Бот запущен!", start_date, start_time)
 
 
 @dp.message_handler(commands='update_data')
-async def data_update(commands='update_data'):
+async def data_update(message: types.Message):
 
     start_job_time = int(datetime.now().strftime("%H_%M_%S"))
 
@@ -59,9 +58,9 @@ async def data_update(commands='update_data'):
     os.chdir(starting_dir)
     print(datetime.now())
 
-    # working_time_message = f'На обработку затрачено времени: <b>{working_time}</b>'
-    #
-    # message.answer(working_time_message, parse_mode='html')
+    working_time_message = f'На обработку затрачено времени: <b>{str(timedelta(seconds=working_time))}</b>'
+
+    await message.answer(working_time_message, parse_mode='html')
 
 
 @dp.message_handler(commands='start')
