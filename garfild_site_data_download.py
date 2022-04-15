@@ -138,6 +138,9 @@ async def get_site_data(headers, category, product, start_dir, url, url_count):
         response = await session.get(url=url, headers=headers, ssl=False)
         async with aiofiles.open(f"{workdir}/page_{url_count}.html", "w", encoding="utf-8") as file:
             await file.write(await response.text())
+            await file.close()
+        sleep(0.1)
+        print("[INFO] Page saved", f"{workdir}/page_{url_count}.html")
 
 
 async def main():
