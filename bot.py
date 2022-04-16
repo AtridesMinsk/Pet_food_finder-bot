@@ -8,6 +8,8 @@ import gavrik_correct_data
 import gavrik_site_data_download
 import ezoo_correct_data
 import ezoo_site_data_download
+import zoobazar_site_data_download
+import zoobazar_correct_data
 import os
 
 from time import sleep
@@ -51,6 +53,8 @@ async def data_update(message: types.Message):
     os.chdir(starting_dir)
     await ezoo_site_data_download.main()
     os.chdir(starting_dir)
+    await zoobazar_site_data_download.main()
+    os.chdir(starting_dir)
 
     stop_job_time = int(datetime.now().strftime("%H_%M_%S"))
     working_time = stop_job_time - start_job_time
@@ -59,8 +63,10 @@ async def data_update(message: types.Message):
     print(datetime.now())
 
     working_time_message = f'На обработку затрачено времени: <b>{str(timedelta(seconds=working_time))}</b>'
-
-    await message.answer(working_time_message, parse_mode='html')
+    try:
+        await message.answer(working_time_message, parse_mode='html')
+    except AttributeError:
+        await bot.send_message(66377435, working_time_message, parse_mode='html')
 
 
 @dp.message_handler(commands='start')
@@ -113,26 +119,12 @@ async def get_data_cats_dry_food(message: types.Message):
     await message.answer('Please waiting...')
 
     try:
-        garfild_correct_data.main(1, 3)
-        os.chdir(starting_dir)
-        gavrik_correct_data.main(1, 3)
-        os.chdir(starting_dir)
-        ezoo_correct_data.main(1, 3)
-        os.chdir(starting_dir)
+        await start_collect_data(1, 3)
 
         set_current_date = datetime.now().strftime("%d.%m.%Y")
         set_current_time = datetime.now().strftime("%H:%M:%S")
-        cur_date = datetime.now().strftime("%d_%m_%Y")
 
-        with open(f"{starting_dir}/garfild/data/cats/dry_food/discount_{cur_date}.json") as file1, \
-                open(f"{starting_dir}/gavrik/data/cats/dry_food/discount_{cur_date}.json") as file2, \
-                open(f"{starting_dir}/ezoo/data/cats/dry_food/discount_{cur_date}.json") as file3:
-            data_garfild = json.load(file1)
-            data_garvik = json.load(file2)
-            data_ezoo = json.load(file3)
-            os.chdir(starting_dir)
-
-        data = data_garfild + data_garvik + data_ezoo
+        data = await get_cards('cats', 'dry_food')
         print(set_current_date, set_current_time, 'Выдаем результаты поиска сухие корма для кошек', len(data))
 
         if (len(data)) > 0:
@@ -157,26 +149,13 @@ async def get_data_dogs_dry_food(message: types.Message):
     await message.answer('Please waiting...')
 
     try:
-        garfild_correct_data.main(2, 3)
-        os.chdir(starting_dir)
-        gavrik_correct_data.main(2, 3)
-        os.chdir(starting_dir)
-        ezoo_correct_data.main(2, 3)
-        os.chdir(starting_dir)
+        await start_collect_data(2, 3)
 
         set_current_date = datetime.now().strftime("%d.%m.%Y")
         set_current_time = datetime.now().strftime("%H:%M:%S")
-        cur_date = datetime.now().strftime("%d_%m_%Y")
 
-        with open(f"{starting_dir}/garfild/data/dogs/dry_food/discount_{cur_date}.json") as file1, \
-                open(f"{starting_dir}/gavrik/data/dogs/dry_food/discount_{cur_date}.json") as file2, \
-                open(f"{starting_dir}/ezoo/data/dogs/dry_food/discount_{cur_date}.json") as file3:
-            data_garfild = json.load(file1)
-            data_garvik = json.load(file2)
-            data_ezoo = json.load(file3)
-            os.chdir(starting_dir)
+        data = await get_cards('dogs', 'dry_food')
 
-        data = data_garfild + data_garvik + data_ezoo
         print(set_current_date, set_current_time, 'Выдаем результаты поиска сухие корма для собак', len(data))
         if (len(data)) > 0:
             for index, item in enumerate(data):
@@ -200,26 +179,12 @@ async def get_data_cats_canned_food(message: types.Message):
     await message.answer('Please waiting...')
 
     try:
-        garfild_correct_data.main(1, 4)
-        os.chdir(starting_dir)
-        gavrik_correct_data.main(1, 4)
-        os.chdir(starting_dir)
-        ezoo_correct_data.main(1, 4)
-        os.chdir(starting_dir)
+        await start_collect_data(1, 4)
 
         set_current_date = datetime.now().strftime("%d.%m.%Y")
         set_current_time = datetime.now().strftime("%H:%M:%S")
-        cur_date = datetime.now().strftime("%d_%m_%Y")
 
-        with open(f"{starting_dir}/garfild/data/cats/canned_food/discount_{cur_date}.json") as file1, \
-                open(f"{starting_dir}/gavrik/data/cats/canned_food/discount_{cur_date}.json") as file2, \
-                open(f"{starting_dir}/ezoo/data/cats/canned_food/discount_{cur_date}.json") as file3:
-            data_garfild = json.load(file1)
-            data_garvik = json.load(file2)
-            data_ezoo = json.load(file3)
-            os.chdir(starting_dir)
-
-        data = data_garfild + data_garvik + data_ezoo
+        data = await get_cards('cats', 'canned_food')
         print(set_current_date, set_current_time, 'Выдаем результаты поиска консервы для кошек', len(data))
 
         if (len(data)) > 0:
@@ -244,27 +209,14 @@ async def get_data_cats_canned_food(message: types.Message):
     await message.answer('Please waiting...')
 
     try:
-        garfild_correct_data.main(2, 4)
-        os.chdir(starting_dir)
-        gavrik_correct_data.main(2, 4)
-        os.chdir(starting_dir)
-        ezoo_correct_data.main(2, 4)
-        os.chdir(starting_dir)
+        await start_collect_data(2, 4)
 
         set_current_date = datetime.now().strftime("%d.%m.%Y")
         set_current_time = datetime.now().strftime("%H:%M:%S")
-        cur_date = datetime.now().strftime("%d_%m_%Y")
 
-        with open(f"{starting_dir}/garfild/data/dogs/canned_food/discount_{cur_date}.json") as file1, \
-                open(f"{starting_dir}/gavrik/data/dogs/canned_food/discount_{cur_date}.json") as file2, \
-                open(f"{starting_dir}/ezoo/data/dogs/canned_food/discount_{cur_date}.json") as file3:
-            data_garfild = json.load(file1)
-            data_garvik = json.load(file2)
-            data_ezoo = json.load(file3)
-            os.chdir(starting_dir)
-
-        data = data_garfild + data_garvik + data_ezoo
+        data = await get_cards('dogs', 'canned_food')
         print(set_current_date, set_current_time, 'Выдаем результаты поиска консервы для собак', len(data))
+
         if (len(data)) > 0:
             for index, item in enumerate(data):
                 card = f'{hbold("Наименование товара: ")}{hlink(item.get("product_name"), item.get("product_url"))}\n' \
@@ -287,26 +239,13 @@ async def get_data_cats_napolniteli(message: types.Message):
     await message.answer('Please waiting...')
 
     try:
-        garfild_correct_data.main(1, 5)
-        os.chdir(starting_dir)
-        gavrik_correct_data.main(1, 5)
-        os.chdir(starting_dir)
-        ezoo_correct_data.main(1, 5)
-        os.chdir(starting_dir)
+        await start_collect_data(1, 5)
 
         set_current_date = datetime.now().strftime("%d.%m.%Y")
         set_current_time = datetime.now().strftime("%H:%M:%S")
-        cur_date = datetime.now().strftime("%d_%m_%Y")
 
-        with open(f"{starting_dir}/garfild/data/cats/napolniteli/discount_{cur_date}.json") as file1, \
-                open(f"{starting_dir}/gavrik/data/cats/napolniteli/discount_{cur_date}.json") as file2, \
-                open(f"{starting_dir}/ezoo/data/cats/napolniteli/discount_{cur_date}.json") as file3:
-            data_garfild = json.load(file1)
-            data_garvik = json.load(file2)
-            data_ezoo = json.load(file3)
-            os.chdir(starting_dir)
+        data = await get_cards('cats', 'napolniteli')
 
-        data = data_garfild + data_garvik + data_ezoo
         print(set_current_date, set_current_time, 'Выдаем результаты поиска Наполнители для кошек', len(data))
         if (len(data)) > 0:
             for index, item in enumerate(data):
@@ -323,6 +262,34 @@ async def get_data_cats_napolniteli(message: types.Message):
             await message.answer("Упс..., товаров с скидкой не нашли (")
     except FileNotFoundError:
         await message.answer("Попробуй позже, идет обновление информации (")
+
+
+async def start_collect_data(pet, category):
+    garfild_correct_data.main(pet, category)
+    os.chdir(starting_dir)
+    gavrik_correct_data.main(pet, category)
+    os.chdir(starting_dir)
+    ezoo_correct_data.main(pet, category)
+    os.chdir(starting_dir)
+    zoobazar_correct_data.main(pet, category)
+    os.chdir(starting_dir)
+
+
+async def get_cards(pet, category):
+    cur_date = datetime.now().strftime("%d_%m_%Y")
+
+    with open(f"{starting_dir}/garfild/data/{pet}/{category}/discount_{cur_date}.json") as file1, \
+            open(f"{starting_dir}/gavrik/data/{pet}/{category}//discount_{cur_date}.json") as file2, \
+            open(f"{starting_dir}/ezoo/data/{pet}/{category}//discount_{cur_date}.json") as file3, \
+            open(f"{starting_dir}/zoobazar/data/{pet}/{category}//discount_{cur_date}.json") as file4:
+        data_garfild = json.load(file1)
+        data_garvik = json.load(file2)
+        data_ezoo = json.load(file3)
+        data_zoobazar = json.load(file4)
+        os.chdir(starting_dir)
+
+    data = data_garfild + data_garvik + data_ezoo + data_zoobazar
+    return data
 
 
 def schedule_jobs():

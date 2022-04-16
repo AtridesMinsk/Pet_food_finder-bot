@@ -61,7 +61,7 @@ def create_csv_file(cur_date):
 
 
 def get_product_name(item):
-    product_name = item.find("div", class_="product-item-title").text.strip()
+    product_name = item.find("div", class_="product__name").text.strip()
     return product_name
 
 
@@ -80,8 +80,8 @@ def get_product_pack(item):
 
 def get_new_price(item):
     try:
-        product_new_price = item.find("p", class_="product-item-list-proposal__discount_new").text.rstrip(
-            "  руб.")
+        product_new_price = item.find("span", class_="product__price").text.rstrip(
+            "  р.")
         product_new_price = re.sub(",", ".", product_new_price)
         product_new_price = float(product_new_price)
     except AttributeError:
@@ -91,8 +91,8 @@ def get_new_price(item):
 
 def get_old_price(item):
     try:
-        product_old_price = item.find("p", class_="product-item-list-proposal__discount_old").text.rstrip(
-            "  руб.")
+        product_old_price = item.find("span", class_="product__price product__price--old").text.rstrip(
+            "  р.")
         product_old_price = re.sub(",", ".", product_old_price)
         product_old_price = float(product_old_price)
     except AttributeError:
@@ -117,7 +117,7 @@ def count_discount(product_new_price, product_old_price):
 
 
 def get_product_url(item):
-    product_url = f'{shop_url}{item.find("div", class_="product-item-title").find("a", href=True).attrs["href"]}'
+    product_url = f'{shop_url}{item.find("div", class_="product").find("a", href=True).attrs["href"]}'
     return product_url
 
 
@@ -127,13 +127,13 @@ def collect_data(pages_count, work_dir, cur_date):
         with open(f"{work_dir}/page_{page}.html", "rb") as file:
             src = file.read()
 
-        soup = BeautifulSoup(src, "lxml")
-        items_cards = soup.find_all("div", class_="product-item-container")
+        soup = BeautifulSoup(src, "html.parser")
+        items_cards = soup.find_all("div", class_="catalog-list")
 
         for item in items_cards:
             product_name = get_product_name(item)
-            product_article = get_product_article(item)
-            product_pack = get_product_pack(item)
+            # product_article = get_product_article(item)
+            # product_pack = get_product_pack(item)
             product_old_price = get_old_price(item)
             product_new_price = get_new_price(item)
             discount = count_discount(product_new_price, product_old_price)
@@ -142,8 +142,8 @@ def collect_data(pages_count, work_dir, cur_date):
 
             data.append(
                 {"product_name": product_name,
-                 "product_article": product_article,
-                 "product_pack": product_pack,
+                 # "product_article": product_article,
+                 # "product_pack": product_pack,
                  "product_new_price": product_new_price,
                  "discount": discount,
                  "disabled": product_disabled,
@@ -157,15 +157,15 @@ def collect_data(pages_count, work_dir, cur_date):
                 writer.writerow(
                     (
                         product_name,
-                        product_article,
-                        product_pack,
+                        # product_article,
+                        # product_pack,
                         product_new_price,
                         discount,
                         product_url
                     )
                 )
 
-        print(f"[INFO] Обрабатываем страницу {page}/{pages_count}")
+        # print(f"[INFO] Обрабатываем страницу {page}/{pages_count}")
     with open(f"{work_dir}/data_{cur_date}.json", "w", encoding="utf-8") as file:
         json.dump(data, file, indent=4, ensure_ascii=False)
 
@@ -176,7 +176,7 @@ def get_discount(cur_date, work_dir):
         items = json.load(file)
 
         for i in items:
-            if i.get('discount') > 25 and i.get('disabled') == 0:
+            if 25 < i.get('discount') < 70:
                 product_name = i.get('product_name')
                 product_article = i.get('product_article')
                 product_new_price = i.get('product_new_price')
@@ -191,7 +191,7 @@ def get_discount(cur_date, work_dir):
                      "product_url": product_url
                      }
                 )
-    print('Всего найдено товаров со скидкой', len(discount_data))
+    print('Всего найдено товаров со скидкой, в магазине - zoobazar.by:', len(discount_data), "\n" "--------" "\n")
     with open(f"{work_dir}/discount_{cur_date}.json", "w") as file:
         json.dump(discount_data, file, indent=4, ensure_ascii=False)
 
@@ -202,7 +202,7 @@ def main(shop_category, shop_product):
     working_dir = get_work_patch(shop_category, shop_product, starting_dir)
 
     pages_count = get_pages_count(working_dir)
-    print("[INFO] ""Найдено страниц для обработки:", pages_count, "\n" "--------")
+    print("[INFO] ""Найдено страниц для обработки:", pages_count)
     create_csv_file(get_current_date())
     collect_data(pages_count, working_dir, get_current_date())
     get_discount(get_current_date(), working_dir)

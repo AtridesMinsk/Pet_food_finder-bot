@@ -167,7 +167,7 @@ def collect_data(pages_count, work_dir, cur_date):
                     )
                 )
 
-        print(f"[INFO] Обрабатываем страницу {page}/{pages_count}")
+        # print(f"[INFO] Обрабатываем страницу {page}/{pages_count}")
     with open(f"{work_dir}/data_{cur_date}.json", "w", encoding="utf-8") as file:
         json.dump(data, file, indent=4, ensure_ascii=False)
 
@@ -179,7 +179,7 @@ def get_discount(cur_date, work_dir):
         items = json.load(file)
 
         for i in items:
-            if i.get('discount') > 25 and i.get('disabled') == 0:
+            if 25 < i.get('discount') < 70 and i.get('disabled') == 0:
                 product_name = i.get('product_name')
                 # product_article = i.get('product_article')
                 product_new_price = i.get('product_new_price')
@@ -194,7 +194,7 @@ def get_discount(cur_date, work_dir):
                      "product_url": product_url
                      }
                 )
-    print('Всего найдено товаров со скидкой', len(discount_data))
+    print('Всего найдено товаров со скидкой, в магазине - gavrik.by:', len(discount_data), "\n" "--------" "\n")
 
     with open(f"{work_dir}/discount_{cur_date}.json", "w", encoding="utf-8") as file:
         json.dump(discount_data, file, indent=4, ensure_ascii=False)
@@ -206,7 +206,7 @@ def main(shop_category, shop_product):
     working_dir = get_work_patch(shop_category, shop_product, starting_dir)
 
     pages_count = get_pages_count(working_dir)
-    print("[INFO] ""Найдено страниц для обработки:", pages_count, "\n" "--------")
+    print("[INFO] ""Найдено страниц для обработки:", pages_count)
     create_csv_file(get_current_date())
     collect_data(pages_count, working_dir, get_current_date())
     get_discount(get_current_date(), working_dir)
