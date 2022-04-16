@@ -6,6 +6,7 @@ Sites currently being processed:
 garfield.by
 gavrik.by
 e-zoo.by
+zoobazar.by
 
 For the bot to work, you need to create a bot_token.py file of the following format:
 token = 'your bot token'
@@ -20,6 +21,7 @@ token = 'your bot token'
 garfild.by
 gavrik.by
 e-zoo.by
+zoobazar.by
 
 Для работы бота необходимо создать файл bot_token.py формата:
 token = 'токен вашего бота'
