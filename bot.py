@@ -125,7 +125,8 @@ async def get_data_cats_dry_food(message: types.Message):
         set_current_time = datetime.now().strftime("%H:%M:%S")
 
         data = await get_cards('cats', 'dry_food')
-        print(set_current_date, set_current_time, 'Выдаем результаты поиска сухие корма для кошек', len(data))
+        print(f'{set_current_date}, {set_current_time}, Выдаем результаты поиска сухие корма для кошек, {len(data)}, '
+              f'для {message.from_user.first_name}')
 
         if (len(data)) > 0:
             for index, item in enumerate(data):
@@ -156,7 +157,8 @@ async def get_data_dogs_dry_food(message: types.Message):
 
         data = await get_cards('dogs', 'dry_food')
 
-        print(set_current_date, set_current_time, 'Выдаем результаты поиска сухие корма для собак', len(data))
+        print(f'{set_current_date}, {set_current_time}, Выдаем результаты поиска сухие корма для собак, {len(data)}, '
+              f'для {message.from_user.first_name}')
         if (len(data)) > 0:
             for index, item in enumerate(data):
                 card = f'{hbold("Наименование товара: ")}{hlink(item.get("product_name"), item.get("product_url"))}\n' \
@@ -185,7 +187,8 @@ async def get_data_cats_canned_food(message: types.Message):
         set_current_time = datetime.now().strftime("%H:%M:%S")
 
         data = await get_cards('cats', 'canned_food')
-        print(set_current_date, set_current_time, 'Выдаем результаты поиска консервы для кошек', len(data))
+        print(f'{set_current_date}, {set_current_time}, Выдаем результаты поиска консервы для кошек, {len(data)}, '
+              f'для {message.from_user.first_name}')
 
         if (len(data)) > 0:
             for index, item in enumerate(data):
@@ -215,7 +218,8 @@ async def get_data_cats_canned_food(message: types.Message):
         set_current_time = datetime.now().strftime("%H:%M:%S")
 
         data = await get_cards('dogs', 'canned_food')
-        print(set_current_date, set_current_time, 'Выдаем результаты поиска консервы для собак', len(data))
+        print(f'{set_current_date}, {set_current_time}, Выдаем результаты поиска консервы для собак, {len(data)}, '
+              f'для {message.from_user.first_name}')
 
         if (len(data)) > 0:
             for index, item in enumerate(data):
@@ -246,7 +250,8 @@ async def get_data_cats_napolniteli(message: types.Message):
 
         data = await get_cards('cats', 'napolniteli')
 
-        print(set_current_date, set_current_time, 'Выдаем результаты поиска Наполнители для кошек', len(data))
+        print(f'{set_current_date}, {set_current_time}, Выдаем результаты поиска Наполнители для кошек, {len(data)},'
+              f' для {message.from_user.first_name}')
         if (len(data)) > 0:
             for index, item in enumerate(data):
                 card = f'{hbold("Наименование товара: ")}{hlink(item.get("product_name"), item.get("product_url"))}\n' \
