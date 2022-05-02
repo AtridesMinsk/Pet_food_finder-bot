@@ -2,6 +2,8 @@
 
 import json
 import random
+import time
+
 import garfild_correct_data
 import garfild_site_data_download
 import gavrik_correct_data
@@ -45,7 +47,8 @@ print("Бот запущен!", start_date, start_time)
 @dp.message_handler(commands='update_data')
 async def data_update(message: types.Message):
 
-    start_job_time = int(datetime.now().strftime("%H_%M_%S"))
+    # start_job_time = int(datetime.now().strftime("%H_%M_%S"))
+    start_job_time = time.perf_counter()
 
     await garfild_site_data_download.main()
     os.chdir(starting_dir)
@@ -56,7 +59,9 @@ async def data_update(message: types.Message):
     await zoobazar_site_data_download.main()
     os.chdir(starting_dir)
 
-    stop_job_time = int(datetime.now().strftime("%H_%M_%S"))
+    # stop_job_time = int(datetime.now().strftime("%H_%M_%S"))
+    stop_job_time = time.perf_counter()
+
     working_time = stop_job_time - start_job_time
     print("Затрачено времени:", str(timedelta(seconds=working_time)))
     os.chdir(starting_dir)
@@ -176,7 +181,7 @@ async def get_data_dogs_dry_food(message: types.Message):
         await message.answer("Попробуй позже, идет обновление информации (")
 
 
-@dp.message_handler(Text(equals='Консервы для котов'))
+@dp.message_handler(Text(equals='Сухой корм для кошек'))
 async def get_data_cats_canned_food(message: types.Message):
     await message.answer('Please waiting...')
 
