@@ -307,8 +307,7 @@ def schedule_jobs():
     """
     print("Запускаем расписание на старт обновления данных с сайта каждый день c 08:00, 13:00, 22:00 UTC+3")
 
-    time_start = datetime.now() + timedelta(minutes=1)
-    scheduler.add_job(data_update, 'date', run_date=time_start, args=(dp,))
+    scheduler.add_job(data_update, 'date', run_date=datetime.now(), timezone="Europe/Minsk", args=(dp,))
     scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=8, minute=00, timezone="Europe/Minsk", args=(dp,))
     scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=13, minute=00, timezone="Europe/Minsk", args=(dp,))
     scheduler.add_job(data_update, 'cron', day_of_week='0-6', hour=20, minute=00, timezone="Europe/Minsk", args=(dp,))
