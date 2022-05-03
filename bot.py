@@ -179,7 +179,7 @@ async def get_data_dogs_dry_food(message: types.Message):
         await message.answer("Попробуй позже, идет обновление информации (")
 
 
-@dp.message_handler(Text(equals='Сухой корм для кошек'))
+@dp.message_handler(Text(equals='Консервы для котов'))
 async def get_data_cats_canned_food(message: types.Message):
     await message.answer('Please waiting...')
 
