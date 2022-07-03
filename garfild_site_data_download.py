@@ -121,7 +121,7 @@ async def get_urls_list(category, pages_count):
 async def get_site_data(headers, category, product, start_dir, url, url_count):
     async with aiohttp.ClientSession() as session:
 
-        if category == 'Для кошек' and product == 'Сухие корма':
+        if category == 'Для кошек' and product == 'Сухой корм':
             os.chdir(f"{start_dir}""/garfild/data/cats/dry_food")
         if category == 'Для кошек' and product == 'Наполнители':
             os.chdir(f"{start_dir}""/garfild/data/cats/napolniteli")
@@ -150,7 +150,7 @@ async def main():
     starting_dir = str(os.getcwd())
 
     shop_category = ['Для кошек', 'Для кошек', 'Для кошек', 'Для собак', 'Для собак']
-    shop_product = ['Сухие корма', 'Наполнители', 'Консервы', 'Сухой корм', 'Консервы']
+    shop_product = ['Сухой корм', 'Наполнители', 'Консервы', 'Сухой корм', 'Консервы']
 
     for category, product in zip(shop_category, shop_product):
         url = await get_url(category, product)
