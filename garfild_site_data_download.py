@@ -88,6 +88,7 @@ async def get_url(pet, chapter):
             chapters_urls.append(link)
             link_text = i.text
             chapters_urls_description.append(link_text)
+            print(link_text)
 
         index_cr_url = chapters_urls_description.index(chapter)
         chapters_urls, chapters_urls_description = chapters_urls[index_cr_url], chapters_urls_description[index_cr_url]
@@ -150,7 +151,7 @@ async def main():
     starting_dir = str(os.getcwd())
 
     shop_category = ['Для кошек', 'Для кошек', 'Для кошек', 'Для собак', 'Для собак']
-    shop_product = ['Сухой корм', 'Наполнители', 'Консервы', 'Сухой корм', 'Консервы']
+    shop_product = ['Сухие корма', 'Наполнители', 'Консервы', 'Сухой корм', 'Консервы']
 
     for category, product in zip(shop_category, shop_product):
         url = await get_url(category, product)
