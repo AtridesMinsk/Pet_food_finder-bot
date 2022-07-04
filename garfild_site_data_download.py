@@ -88,7 +88,7 @@ async def get_url(pet, chapter):
             chapters_urls.append(link)
             link_text = i.text
             chapters_urls_description.append(link_text)
-            print(link_text)
+            # print(link_text)
 
         try:
             index_cr_url = chapters_urls_description.index(chapter)
