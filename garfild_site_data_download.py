@@ -90,7 +90,11 @@ async def get_url(pet, chapter):
             chapters_urls_description.append(link_text)
             print(link_text)
 
-        index_cr_url = chapters_urls_description.index(chapter)
+        try:
+            index_cr_url = chapters_urls_description.index(chapter)
+        except ValueError:
+            index_cr_url = 2
+
         chapters_urls, chapters_urls_description = chapters_urls[index_cr_url], chapters_urls_description[index_cr_url]
 
         url = chapters_urls
